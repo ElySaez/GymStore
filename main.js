@@ -1,6 +1,6 @@
 // Declaración de variables y objetos
-var carrito = [];
-var productos = [
+let carrito = [];
+let productos = [
     { nombre: "Pesas", precio: 25 },
     { nombre: "Esterilla", precio: 15 },
     { nombre: "Banda de resistencia", precio: 10 },
@@ -10,12 +10,12 @@ var productos = [
 
 // Función para realizar una compra
 function realizarCompra() {
-    var finalizar = false;
-    var total = 0;
+    let finalizar = false;
+    let total = 0;
 
     while (!finalizar) {
         // Captura entradas del usuario
-        var producto = prompt("Ingresa el nombre del producto que deseas comprar (o escribe 'fin' para terminar):");
+        let producto = prompt("Ingresa el nombre del producto que deseas comprar (o escribe 'fin' para terminar):");
 
         if (producto.toLowerCase() === "fin") {
             finalizar = true;
@@ -23,13 +23,13 @@ function realizarCompra() {
         }
 
         // Valida si se ingresó un producto válido
-        var productoEncontrado = productos.find(function(item) {
+        let productoEncontrado = productos.find(function(item) {
             return item.nombre.toLowerCase() === producto.toLowerCase();
         });
 
         if (productoEncontrado) {
-            var cantidad;
-            var cantidadValida = false;
+            let cantidad;
+            let cantidadValida = false;
 
             while (!cantidadValida) {
                 cantidad = parseInt(prompt("Ingresa la cantidad que deseas comprar:"));
@@ -51,11 +51,11 @@ function realizarCompra() {
             });
 
             // Calcula el subtotal y lo suma  al total
-            var subtotal = productoEncontrado.precio * cantidad;
+            let subtotal = productoEncontrado.precio * cantidad;
             total += subtotal;
 
             // Muestra mensaje de éxito
-            var mensajeExito = "Producto agregado al carrito:\n";
+            let mensajeExito = "Producto agregado al carrito:\n";
             mensajeExito += "Producto: " + productoEncontrado.nombre + "\n";
             mensajeExito += "Cantidad: " + cantidad;
             alert(mensajeExito);
@@ -67,11 +67,11 @@ function realizarCompra() {
 
     // Muestra el resumen de la compra y el total
     if (carrito.length > 0) {
-        var mensajeResumen = "Resumen de la compra:\n";
+        let mensajeResumen = "Resumen de la compra:\n";
 
-        for (var i = 0; i < carrito.length; i++) {
-            var item = carrito[i];
-            var subtotal = item.precioUnitario * item.cantidad;
+        for (let i = 0; i < carrito.length; i++) {
+            let item = carrito[i];
+            let subtotal = item.precioUnitario * item.cantidad;
 
             mensajeResumen += "Producto: " + item.producto + "\n";
             mensajeResumen += "Cantidad: " + item.cantidad + "\n";
