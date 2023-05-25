@@ -10,11 +10,11 @@ if (localStorage.getItem('carrito')) {
 
 // Productos
 const productos = [
-  { nombre: 'Pesas', precio: 25 },
-  { nombre: 'Esterilla', precio: 15 },
-  { nombre: 'Banda de resistencia', precio: 10 },
-  { nombre: 'Pelota de ejercicio', precio: 20 },
-  { nombre: 'Cuerda de saltar', precio: 8 }
+  { nombre: 'Pesas', precio: 25000 },
+  { nombre: 'Esterilla', precio: 15000 },
+  { nombre: 'Banda de resistencia', precio: 10000 },
+  { nombre: 'Pelota de ejercicio', precio: 20000 },
+  { nombre: 'Cuerda de saltar', precio: 8000 }
 ];
 
 // Elementos del DOM
