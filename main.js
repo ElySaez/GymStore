@@ -1,8 +1,8 @@
-// Variables globales
+// Variables 
 let carrito = [];
 let total = 0;
 
-// Obtener carrito del LocalStorage al cargar la página
+// Obtiene el carrito del LocalStorage al cargar la página
 if (localStorage.getItem('carrito')) {
   carrito = JSON.parse(localStorage.getItem('carrito'));
  
@@ -30,7 +30,7 @@ const popup = document.getElementById('popup');
 const popupText = document.getElementById('popup-text');
 const popupCloseBtn = document.getElementById('popup-close-btn');
 
-// Mostrar ventana de bienvenida
+// Muestra la ventana de bienvenida
 function mostrarVentanaBienvenida() {
   const nombre = localStorage.getItem('nombre');
 
@@ -107,7 +107,7 @@ function asignarNombreInvitado() {
   localStorage.setItem('nombre', 'Invitado');
 }
 
-// Actualizar el resumen de la compra
+// Actualiza el resumen de la compra
 function actualizarResumen() {
   carritoList.innerHTML = '';
   total = 0;
@@ -148,10 +148,10 @@ function actualizarResumen() {
     total += precioUnitario * cantidad;
   });
 
-  totalDiv.textContent = `Total: $${total.toFixed(2)}`;
+  totalDiv.textContent = `Total: $${total}`;
   const iva = total * 0.19;
   const totalConIva = total + iva;
-  totalDiv.innerHTML += `<br>IVA (19%): $${iva.toFixed(2)}<br>Total (con IVA): $${totalConIva.toFixed(2)}`;
+  totalDiv.innerHTML += `<br>IVA (19%): $${iva}<br>Total (con IVA): $${totalConIva.toFixed(2)}`;
 
   if (carrito.length > 0) {
     finalizarBtn.disabled = false;
@@ -161,11 +161,11 @@ function actualizarResumen() {
     limpiarBtn.disabled = true;
   }
 
-  // Guardar carrito en el LocalStorage
+  // Guarda un carrito en el LocalStorage
   localStorage.setItem('carrito', JSON.stringify(carrito));
 }
 
-// Agregar un producto al carrito
+// Agrega un producto al carrito
 function agregarProducto() {
   const seleccionado = productoSelect.value;
   const cantidad = parseInt(cantidadInput.value);
@@ -195,13 +195,13 @@ function agregarProducto() {
   cantidadInput.value = '';
 }
 
-// Aumentar la cantidad de un producto en el carrito
+// Aumenta la cantidad de un producto en el carrito
 function aumentarCantidad(index) {
   carrito[index].cantidad++;
   actualizarResumen();
 }
 
-// Disminuir la cantidad de un producto en el carrito
+// Disminuye la cantidad de un producto en el carrito
 function disminuirCantidad(index) {
   if (carrito[index].cantidad > 1) {
     carrito[index].cantidad--;
@@ -212,26 +212,22 @@ function disminuirCantidad(index) {
   actualizarResumen();
 }
 
-// Finalizar la compra
+// Finaliza la compra
 function finalizarCompra() {
-  // Aquí puedes agregar la lógica para procesar la compra
-  // y realizar las acciones necesarias
 
-  // ...
-
-  // Limpiar el carrito y actualizar el resumen
+  // Limpia el carrito y actualiza el resumen
   carrito = [];
   actualizarResumen();
   mostrarPopup('¡Gracias por su compra, el detalle fue enviado al correo a***dfl89@gmail.com!');
 }
 
-// Limpiar el carrito
+// Limpia el carrito
 function limpiarCarrito() {
   carrito = [];
   actualizarResumen();
 }
 
-// Mostrar un mensaje emergente (popup)
+// Muestra el mensaje emergente (popup)
 function mostrarPopup(mensaje) {
   popupText.textContent = mensaje;
   popup.classList.add('show');
@@ -241,7 +237,7 @@ function mostrarPopup(mensaje) {
   }, 2000);
 }
 
-// Cerrar el popup
+// Cierra el popup
 function cerrarPopup() {
   popup.classList.remove('show');
 }
@@ -252,6 +248,6 @@ finalizarBtn.addEventListener('click', finalizarCompra);
 limpiarBtn.addEventListener('click', limpiarCarrito);
 popupCloseBtn.addEventListener('click', cerrarPopup);
 
-// Mostrar ventana de bienvenida al cargar la página
+// Muestra la ventana de bienvenida al cargar la página
 mostrarVentanaBienvenida();
 actualizarResumen();
