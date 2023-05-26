@@ -20,10 +20,10 @@
         <h3>Agregar producto</h3>
         <div class="form-group">
           <label for="producto-select">Producto:</label>
-          <select id="producto-select" class="form-control">
+          <select id="producto-select" class="form-control" required>
             <option value="">Seleccionar producto</option>
-            <option value="Pesas">Pesas</option>
-            <option value="Esterilla">Esterilla</option>
+            <option value="Pesas de 3 kg">Pesas de 3 kg</option>
+            <option value="Esterilla de diseños">Esterilla de diseños</option>
             <option value="Banda de resistencia">Banda de resistencia</option>
             <option value="Pelota de ejercicio">Pelota de ejercicio</option>
             <option value="Cuerda de saltar">Cuerda de saltar</option>
@@ -31,7 +31,7 @@
         </div>
         <div class="form-group">
           <label for="cantidad-input">Cantidad:</label>
-          <input type="number" id="cantidad-input" class="form-control" min="1" value="1">
+          <input type="number" id="cantidad-input" class="form-control" min="1" value="1" required>
         </div>
         <button id="agregar-btn" class="btn btn-primary">Agregar al carrito</button>
       </div>
@@ -44,13 +44,24 @@
       </div>
     </div>
   </div>
-
   <div id="popup" class="popup">
     <div id="popup-content" class="popup-content">
       <p id="popup-text"></p>
       <button id="popup-close-btn" class="btn btn-primary"></button>
     </div>
   </div>
+ 
+  <div id="notification-toast" class="toast notification-center" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+    <div class="toast-header">
+      <strong class="mr-auto">Mensaje</strong>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body" id="notification-toast-body"></div>
+  </div>
+  
+  
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

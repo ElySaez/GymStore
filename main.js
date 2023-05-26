@@ -10,8 +10,8 @@ if (localStorage.getItem('carrito')) {
 
 // Productos
 const productos = [
-  { nombre: 'Pesas', precio: 25000 },
-  { nombre: 'Esterilla', precio: 15000 },
+  { nombre: 'Pesas de 3 kg', precio: 25000 },
+  { nombre: 'Esterilla de diseños', precio: 15000 },
   { nombre: 'Banda de resistencia', precio: 10000 },
   { nombre: 'Pelota de ejercicio', precio: 20000 },
   { nombre: 'Cuerda de saltar', precio: 8000 }
@@ -118,13 +118,16 @@ function actualizarResumen() {
     const listItem = document.createElement('li');
     listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
 
+    const botonGroup = document.createElement('div');
+    botonGroup.classList.add('btn-group', 'mr-2');
+
     const botonMenos = document.createElement('button');
-    botonMenos.classList.add('btn', 'btn-sm', 'btn-danger', 'mr-2');
+    botonMenos.classList.add('btn', 'btn-sm', 'btn-danger');
     botonMenos.textContent = '-';
     botonMenos.addEventListener('click', () => disminuirCantidad(index));
 
     const botonMas = document.createElement('button');
-    botonMas.classList.add('btn', 'btn-sm', 'btn-success', 'mr-2');
+    botonMas.classList.add('btn', 'btn-sm', 'btn-success');
     botonMas.textContent = '+';
     botonMas.addEventListener('click', () => aumentarCantidad(index));
 
@@ -137,8 +140,10 @@ function actualizarResumen() {
     const precioSpan = document.createElement('span');
     precioSpan.textContent = `$${precioUnitario * cantidad}`;
 
-    listItem.appendChild(botonMenos);
-    listItem.appendChild(botonMas);
+    botonGroup.appendChild(botonMenos);
+    botonGroup.appendChild(botonMas);
+
+    listItem.appendChild(botonGroup);
     listItem.appendChild(cantidadSpan);
     listItem.appendChild(nombreSpan);
     listItem.appendChild(precioSpan);
@@ -151,7 +156,7 @@ function actualizarResumen() {
   totalDiv.textContent = `Total: $${total}`;
   const iva = total * 0.19;
   const totalConIva = total + iva;
-  totalDiv.innerHTML += `<br>IVA (19%): $${iva}<br>Total (con IVA): $${totalConIva.toFixed(2)}`;
+  totalDiv.innerHTML += `<br>IVA (19%): $${iva}<br>Total (con IVA): $${totalConIva.toLocaleString()}`;
 
   if (carrito.length > 0) {
     finalizarBtn.disabled = false;
@@ -216,7 +221,7 @@ function disminuirCantidad(index) {
 function finalizarCompra() {
 
   // Limpia el carrito y actualiza el resumen
-  carrito = [];
+ carrito = [];
   actualizarResumen();
   mostrarPopup('¡Gracias por su compra, el detalle fue enviado al correo a***dfl89@gmail.com!');
 }
@@ -229,12 +234,10 @@ function limpiarCarrito() {
 
 // Muestra el mensaje emergente (popup)
 function mostrarPopup(mensaje) {
-  popupText.textContent = mensaje;
-  popup.classList.add('show');
+  const notificationToastBody = document.getElementById('notification-toast-body');
+  notificationToastBody.textContent = mensaje;
 
-  setTimeout(() => {
-    popup.classList.remove('show');
-  }, 2000);
+  $('.toast').toast('show');
 }
 
 // Cierra el popup
@@ -251,3 +254,7 @@ popupCloseBtn.addEventListener('click', cerrarPopup);
 // Muestra la ventana de bienvenida al cargar la página
 mostrarVentanaBienvenida();
 actualizarResumen();
+const notificationToast = document.getElementById('notification-toast');
+notificationToast.addEventListener('hidden.bs.toast', () => {
+  notificationToastBody.textContent = '';
+});
