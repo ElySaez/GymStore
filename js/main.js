@@ -5,17 +5,28 @@ let total = 0;
 // Obtiene el carrito del LocalStorage al cargar la página
 if (localStorage.getItem('carrito')) {
   carrito = JSON.parse(localStorage.getItem('carrito'));
- 
 }
 
 // Productos
-const productos = [
-  { nombre: 'Pesas de 3 kg', precio: 25000 },
-  { nombre: 'Esterilla de diseños', precio: 15000 },
-  { nombre: 'Banda de resistencia', precio: 10000 },
-  { nombre: 'Pelota de ejercicio', precio: 20000 },
-  { nombre: 'Cuerda de saltar', precio: 8000 }
-];
+async function fetchProductos() {
+  return fetch("./js/products.json")
+    .then(response => response.json())
+    .then(productos => (productos))
+}
+
+async function menuProductos() {
+  fetchProductos()
+    .then((productos) => {
+      for (let producto of productos) {
+        const option = document.createElement("option");
+        option.text = producto.nombre;
+        option.value = producto.nombre;
+        productoSelect.add(option);
+      }
+    })
+    .catch(console.error);
+}
+menuProductos();
 
 // Elementos del DOM
 const productoSelect = document.getElementById('producto-select');
@@ -172,32 +183,34 @@ function actualizarResumen() {
 
 // Agrega un producto al carrito
 function agregarProducto() {
-  const seleccionado = productoSelect.value;
-  const cantidad = parseInt(cantidadInput.value);
+  fetchProductos()
+    .then((productos) => {
+      const seleccionado = productoSelect.value;
+      const cantidad = parseInt(cantidadInput.value);
 
-  if (seleccionado && cantidad > 0) {
-    const producto = productos.find((item) => item.nombre === seleccionado);
+      if (seleccionado && cantidad > 0) {
+        const producto = productos.find((item) => item.nombre === seleccionado);
 
-    if (producto) {
-      const existeEnCarrito = carrito.find((item) => item.producto === seleccionado);
+        if (producto) {
+          const existeEnCarrito = carrito.find((item) => item.producto === seleccionado);
 
-      if (existeEnCarrito) {
-        existeEnCarrito.cantidad += cantidad;
-      } else {
-        carrito.push({
-          producto: seleccionado,
-          precioUnitario: producto.precio,
-          cantidad
-        });
+          if (existeEnCarrito) {
+            existeEnCarrito.cantidad += cantidad;
+          } else {
+            carrito.push({
+              producto: seleccionado,
+              precioUnitario: producto.precio,
+              cantidad
+            });
+          }
+          actualizarResumen();
+          mostrarPopup('Producto agregado al carrito.');
+        }
       }
-
-      actualizarResumen();
-      mostrarPopup('Producto agregado al carrito.');
-    }
-  }
-
-  productoSelect.value = '';
-  cantidadInput.value = '';
+      productoSelect.value = '';
+      cantidadInput.value = '';
+    })
+    .catch(console.error);
 }
 
 // Aumenta la cantidad de un producto en el carrito
@@ -219,9 +232,8 @@ function disminuirCantidad(index) {
 
 // Finaliza la compra
 function finalizarCompra() {
-
   // Limpia el carrito y actualiza el resumen
- carrito = [];
+  carrito = [];
   actualizarResumen();
   mostrarPopup('¡Gracias por su compra, el detalle fue enviado al correo a***dfl89@gmail.com!');
 }
