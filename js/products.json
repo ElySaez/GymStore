@@ -1,0 +1,22 @@
+[
+  {
+    "nombre": "Pesas de 3 kg",
+    "precio": 25000
+  },
+  {
+    "nombre": "Esterilla de diseños",
+    "precio": 15000
+  },
+  {
+    "nombre": "Banda de resistencia",
+    "precio": 10000
+  },
+  {
+    "nombre": "Pelota de ejercicio",
+    "precio": 20000
+  },
+  {
+    "nombre": "Cuerda de saltar",
+    "precio": 8000
+  }
+]
